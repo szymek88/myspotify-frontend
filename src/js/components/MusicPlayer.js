@@ -3,7 +3,7 @@ import Tracklist from './Tracklist';
 import AudioPlayer from './AudioPlayer';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { UNSELECTED } from '../reducers';
+import { UNSELECTED } from '../reducers/songReducers';
 
 function MusicPlayer({ selectedSongId }) {
     const shouldRenderAudioPlayer = selectedSongId !== UNSELECTED;

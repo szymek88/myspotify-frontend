@@ -3,12 +3,18 @@ import ReactDOM from 'react-dom';
 import App from './js/components/App';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { createStore, applyMiddleware } from 'redux';
-import { fetchSongs } from './js/actions';
-import rootReducer from './js/reducers';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { fetchSongs } from './js/actions/songActions';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
+import { selectedSongId, songs } from './js/reducers/songReducers';
+import { suggestions } from './js/reducers/suggestionsReducers';
 
+const rootReducer = combineReducers({
+    selectedSongId,
+    songs,
+    suggestions
+});
 const loggerMiddleware = createLogger();
 
 const store = createStore(

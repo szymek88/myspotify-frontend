@@ -1,18 +1,19 @@
-import { combineReducers } from 'redux';
 import { SELECT_SONG, REQUEST_SONGS,
-    RECEIVE_SONGS, SIGNAL_ERROR } from './actions';
+    RECEIVE_SONGS, SIGNAL_ERROR } from '../actions/songActions';
 
 export const UNSELECTED = -1;
 
-function selectedSongId(state = UNSELECTED, action) {
+export function selectedSongId(state = UNSELECTED, action) {
     return (action.type === SELECT_SONG) ? action.songId : state;
 }
 
-function songs(state = {
+const initialState = {
     songResources: [],
     isFetching: false,
     errorMsg: ''
-}, action) {
+};
+
+export function songs(state = initialState, action) {
     switch (action.type) {
         case REQUEST_SONGS:
             return {
@@ -35,10 +36,3 @@ function songs(state = {
             return state;
     }
 }
-
-const rootReducer = combineReducers({
-    songs,
-    selectedSongId
-});
-
-export default rootReducer;

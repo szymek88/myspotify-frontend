@@ -12,18 +12,18 @@ export function selectSong(songId) {
     };
 }
 
-export function requestSongs() {
+function requestSongs() {
     return { type: REQUEST_SONGS };
 }
 
-export function receiveSongs(json) {
+function receiveSongs(json) {
     return {
         type: RECEIVE_SONGS,
         songs: json._embedded.songResourceList
     };
 }
 
-export function signalError(errorMsg) {
+function signalError(errorMsg) {
     return {
         type: SIGNAL_ERROR,
         errorMsg

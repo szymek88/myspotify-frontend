@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { selectSong } from '../actions';
+import { selectSong } from '../actions/songActions';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
-import '../../Tracklist.css';
+import '../../css/Tracklist.css';
 
 function Tracklist({ songs, onSongClick }) {
     const songsList = songs.map(song =>
