@@ -8,12 +8,14 @@ import { fetchSongs } from './js/actions/songActions';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import { selectedSongId, songs } from './js/reducers/songReducers';
-import { suggestions } from './js/reducers/suggestionsReducers';
+import { suggestions } from './js/reducers/suggestionsReducer';
+import { searchResults } from './js/reducers/searchReducer';
 
 const rootReducer = combineReducers({
     selectedSongId,
     songs,
-    suggestions
+    suggestions,
+    searchResults
 });
 const loggerMiddleware = createLogger();
 

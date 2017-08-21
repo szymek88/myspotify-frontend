@@ -1,23 +1,10 @@
-.react-autosuggest__input {
-    width: 280px;
-    height: 40px;
-    margin-top: 5px;
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-}
-
-.react-autosuggest__input--open {
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
+$container-width: 320px;
 
 .react-autosuggest__suggestions-container--open {
     display: block;
     position: absolute;
-    width: 280px;
-    border: 1px solid #aaa;
+    width: $container-width;
+    border: 1px solid #ccc;
     border-top: none;
     background-color: #fff;
     font-size: 14px;
@@ -53,4 +40,10 @@
     padding: 10px 0 0 10px;
     font-size: 12px;
     color: #777;
+}
+
+.react-autosuggest__container {
+    margin-top: 8px;
+    width: $container-width;
+    height: 40px;
 }

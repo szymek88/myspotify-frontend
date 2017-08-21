@@ -2,10 +2,11 @@ import React from 'react';
 import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../../css/AudioPlayer.css';
 
 function AudioPlayer({ songUrl }) {
     return (
-        <ReactAudioPlayer src={songUrl} controls autoPlay />
+        <ReactAudioPlayer src={songUrl} controls autoPlay className="audio"/>
     );
 };
 

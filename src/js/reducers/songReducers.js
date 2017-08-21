@@ -1,5 +1,5 @@
-import { SELECT_SONG, REQUEST_SONGS,
-    RECEIVE_SONGS, SIGNAL_ERROR } from '../actions/songActions';
+import { SELECT_SONG, REQUEST_SONGS, RECEIVE_SONGS } from '../actions/songActions';
+import { SIGNAL_ERROR } from '../actions/genericActions';
 
 export const UNSELECTED = -1;
 

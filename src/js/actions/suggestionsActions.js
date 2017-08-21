@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+import { fetchData } from './genericActions';
 
 export const UPDATE_VALUE = 'UPDATE_VALUE';
 export const CLEAR_SUGGESTIONS = 'CLEAR_SUGGESTIONS';
@@ -32,14 +32,9 @@ function receiveSuggestions(suggestions, value) {
     };
 }
 
-export function fetchSuggestions(query) {
-    const formattedValue = query.value.replace(" ", "+");
-    return dispatch => {
-        dispatch(requestSuggestions());
-        return fetch('/suggest?q=' + formattedValue).then(response => {
-            response.json().then(suggestions => {
-                dispatch(receiveSuggestions(suggestions, query.value))
-            });
-        });
-    };
+export function fetchSuggestions(value) {
+    const url = '/suggest?q=' + value.replace(" ", "+");
+    return fetchData(url, requestSuggestions, (suggestions, dispatch) => {
+        dispatch(receiveSuggestions(suggestions, value));
+    });
 }
