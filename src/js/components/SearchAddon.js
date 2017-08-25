@@ -2,10 +2,8 @@ import React from 'react';
 import { InputGroup, Glyphicon } from 'react-bootstrap';
 import '../../css/SearchAddon.css';
 import PropTypes from 'prop-types';
-import { fetchSearchResults } from '../actions/searchActions';
 import { connect } from 'react-redux';
-import { showSection } from '../actions/centralSectionActions';
-import { CentralSections } from '../CentralSections';
+import { showSearchResults } from '../actions/centralSectionActions';
 
 function SearchAddon({ onClick }) {
     return (
@@ -22,8 +20,7 @@ SearchAddon.propTypes = {
 const mapDispatchToProps = dispatch => {
     return {
         onClick: () => {
-            dispatch(fetchSearchResults());
-            dispatch(showSection(CentralSections.SEARCH_RESULTS));
+            dispatch(showSearchResults());
         }
     };
 };

@@ -1,6 +1,9 @@
 import fetch from 'isomorphic-fetch';
+import generateActionCreator from './generateActionCreator';
 
 export const SIGNAL_ERROR = 'SIGNAL_ERROR';
+
+const signalError = generateActionCreator(SIGNAL_ERROR, 'errorMsg');
 
 export function fetchData(url, requestData, receiveData) {
     return dispatch => {
@@ -14,12 +17,5 @@ export function fetchData(url, requestData, receiveData) {
                 dispatch(signalError(response.statusText));
             }
         });
-    };
-}
-
-export function signalError(errorMsg) {
-    return {
-        type: SIGNAL_ERROR,
-        errorMsg
     };
 }

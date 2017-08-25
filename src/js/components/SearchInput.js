@@ -4,11 +4,9 @@ import { updateValue, fetchSuggestions, clearSuggestions }
     from '../actions/suggestionsActions';
 import { connect } from 'react-redux';
 import '../../css/SearchInput.css';
-import { fetchSearchResults } from '../actions/searchActions';
 import { InputGroup } from 'react-bootstrap';
 import SearchAddon from './SearchAddon';
-import { showSection } from '../actions/centralSectionActions';
-import { CentralSections } from '../CentralSections';
+import { showSearchResults } from '../actions/centralSectionActions';
 
 function SearchInput(props) {
     const inputProps = {
@@ -67,8 +65,7 @@ const mapDispatchToProps = (dispatch) => {
         onSuggestionsFetchRequested: ({ value }) => dispatch(fetchSuggestions(value)),
         onSuggestionsClearRequested: () => dispatch(clearSuggestions()),
         onSuggestionSelected: event => {
-            dispatch(fetchSearchResults());
-            dispatch(showSection(CentralSections.SEARCH_RESULTS));
+            dispatch(showSearchResults());
         },
         onKeyDown: event => onKeyDown(event, dispatch)
     };
@@ -76,9 +73,8 @@ const mapDispatchToProps = (dispatch) => {
 
 function onKeyDown(event, dispatch) {
     if (event.key === 'Enter') {
-        dispatch(fetchSearchResults());
         dispatch(clearSuggestions());
-        dispatch(showSection(CentralSections.SEARCH_RESULTS));
+        dispatch(showSearchResults());
     }
 }
 

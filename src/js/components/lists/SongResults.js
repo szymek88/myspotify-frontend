@@ -1,25 +1,14 @@
 import { connect } from 'react-redux';
 import { selectSong } from '../../actions/songActions';
 import List from './List';
+import { mapSongs } from '../../mappingUtils';
 
 const mapStateToProps = state => {
     return {
-        items: mapSongs(state.searchResults.results.songs),
+        items: mapSongs(state.songs.items, true),
         panelHeader: 'Songs'
     };
 };
-
-function mapSongs(songsResources) {
-    return songsResources.map(songResource => {
-        const song = songResource.song;
-        return {
-            id: song.id,
-            header: song.name,
-            content: song.artist.name,
-            resource: songResource
-        };
-    });
-}
 
 const mapDispatchToProps = dispatch => {
     return {

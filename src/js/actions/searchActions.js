@@ -1,25 +1,40 @@
 import { fetchData } from './genericActions';
+import { requestSongs, receiveSongs } from './songActions';
+import { requestAlbums, receiveAlbums } from './albumActions';
+import { requestArtists, receiveArtists } from './artistActions';
 
-export const SEARCH = 'SEARCH';
-export const RECEIVE_RESULTS = 'RECEIVE_RESULTS';
+export const SUBMIT_SEARCH_QUERY = 'SUBMIT_SEARCH_QUERY';
 
-function search() {
-    return { type: SEARCH };
-}
-
-function receiveResults(searchResults) {
-    return {
-        type: RECEIVE_RESULTS,
-        searchResults
+export function submitSearchQuery() {
+    return (dispatch, getState) => {
+        dispatch({
+            type: SUBMIT_SEARCH_QUERY,
+            value: getState().suggestions.value
+        });
     };
 }
 
-export function fetchSearchResults() {
-    return (dispatch, getState) => {
-        const value = getState().suggestions.value;
-        const url = '/search?q=' + value.replace(" ", "+");
-        dispatch(fetchData(url, search, (results, dispatch) => {
-            dispatch(receiveResults(results));
+export function search(query) {
+    return (dispatch) => {
+        const url = '/search?q=' + query.replace(" ", "+");
+        dispatch(fetchData(url, beginSearching, (results, dispatch) => {
+            dispatch(finishSearching(results));
         }));
+    };
+}
+
+function beginSearching() {
+    return dispatch => {
+        dispatch(requestSongs());
+        dispatch(requestAlbums());
+        dispatch(requestArtists());
+    };
+}
+
+function finishSearching(results) {
+    return dispatch => {
+        dispatch(receiveSongs(results.songsResources.content));
+        dispatch(receiveAlbums(results.albumsResources.content));
+        dispatch(receiveArtists(results.artistsResources.content));
     };
 }

@@ -3,6 +3,7 @@ import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../../css/AudioPlayer.css';
+import  { findLink } from '../mappingUtils';
 
 function AudioPlayer({ songUrl }) {
     return (
@@ -16,8 +17,7 @@ AudioPlayer.propTypes = {
 
 const mapStateToProps = (state) => {
     return {
-        songUrl: state.selectedSong.links
-            .find(link => link.rel === 'audio').href
+        songUrl: findLink(state.songs.selectedItem.links, 'audio')
     };
 };
 

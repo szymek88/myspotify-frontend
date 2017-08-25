@@ -6,21 +6,29 @@ import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
-import { selectedSong } from './js/reducers/songReducers';
 import { suggestions } from './js/reducers/suggestionsReducer';
-import { searchResults } from './js/reducers/searchReducer';
-import { centralSection } from './js/reducers/centralSectionReducers';
-import { selectedAlbum } from './js/reducers/albumReducers';
 import './css/index.css'
-import { activePage } from './js/reducers/pageReducers';
+import { createReducer, createSingleActionReducer } from './js/reducers/reducerFactories';
+import { SHOW_SECTION } from './js/actions/centralSectionActions';
+import { SELECT_PAGE } from './js/actions/pageActions';
+import { SUBMIT_SEARCH_QUERY } from './js/actions/searchActions';
+import SearchResults from './js/components/SearchResults';
+
+const songs = createReducer('SONG');
+const albums = createReducer('ALBUM');
+const artists = createReducer('ARTIST');
+const centralComponent = createSingleActionReducer(<SearchResults/>, SHOW_SECTION);
+const activePage = createSingleActionReducer(1, SELECT_PAGE);
+const submittedSearchQuery = createSingleActionReducer('', SUBMIT_SEARCH_QUERY);
 
 const rootReducer = combineReducers({
-    selectedSong,
-    selectedAlbum,
+    songs,
+    albums,
+    artists,
     suggestions,
-    searchResults,
-    centralSection,
-    activePage
+    centralComponent,
+    activePage,
+    submittedSearchQuery
 });
 const loggerMiddleware = createLogger();
 

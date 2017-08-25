@@ -1,32 +1,9 @@
-import { fetchData } from './genericActions';
+import generateActionCreator from './generateActionCreator';
 
-export const SELECT_ALBUM = 'SELECT_ALBUM';
-export const REQUEST_ALBUM_SONGS = 'REQUEST_ALBUM_SONGS';
-export const RECEIVE_ALBUM_SONGS = 'RECEIVE_ALBUM_SONGS';
+const SELECT_ALBUM = 'SELECT_ALBUM';
+const REQUEST_ALBUMS = 'REQUEST_ALBUMS';
+const RECEIVE_ALBUMS = 'RECEIVE_ALBUMS';
 
-export function selectAlbum(album) {
-    return {
-        type: SELECT_ALBUM,
-        album
-    };
-}
-
-function requestAlbumSongs() {
-    return {
-        type: REQUEST_ALBUM_SONGS
-    };
-}
-
-function receiveAlbumSongs(songs) {
-    return {
-        type: RECEIVE_ALBUM_SONGS,
-        songs
-    };
-}
-
-export function fetchAlbumSongs(albumResource) {
-    const url = albumResource.links.find(link => link.rel === 'songs').href;
-    return fetchData(url, requestAlbumSongs, (songs, dispatch) => {
-        dispatch(receiveAlbumSongs(songs.content));
-    });
-}
+export const selectAlbum = generateActionCreator(SELECT_ALBUM, 'selectedItem');
+export const requestAlbums = generateActionCreator(REQUEST_ALBUMS);
+export const receiveAlbums = generateActionCreator(RECEIVE_ALBUMS, 'items');

@@ -1,23 +1,21 @@
 import { connect } from 'react-redux';
 import List from './List';
-import { fetchAlbumSongs, selectAlbum } from '../../actions/albumActions';
-import { showSection } from '../../actions/centralSectionActions';
-import { CentralSections } from '../../CentralSections';
+import { showAlbumSection } from '../../actions/centralSectionActions';
 
 const mapStateToProps = state => {
     return {
-        items: mapAlbums(state.searchResults.results.albums),
+        items: mapAlbums(state.albums.items),
         panelHeader: 'Albums'
     };
 };
 
 function mapAlbums(albumsResources) {
     return albumsResources.map(albumResource => {
-        const album = albumResource.album;
+        const { id, name, artist } = albumResource.album;
         return {
-            id: album.id,
-            header: album.name,
-            content: album.artist.name,
+            id,
+            header: name,
+            content: artist.name,
             resource: albumResource
         };
     });
@@ -26,9 +24,7 @@ function mapAlbums(albumsResources) {
 const mapDispatchToProps = dispatch => {
   return {
       onClick: album => {
-          dispatch(fetchAlbumSongs(album));
-          dispatch(selectAlbum(album));
-          dispatch(showSection(CentralSections.ALBUM_SECTION))
+          dispatch(showAlbumSection(album));
       }
   };
 };

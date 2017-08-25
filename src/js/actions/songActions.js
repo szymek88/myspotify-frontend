@@ -1,29 +1,16 @@
 import { fetchData } from './genericActions';
+import generateActionCreator from './generateActionCreator';
 
-export const SELECT_SONG = 'SELECT_SONG';
-export const REQUEST_SONGS = 'REQUEST_SONGS';
-export const RECEIVE_SONGS = 'RECEIVE_SONGS';
+const SELECT_SONG = 'SELECT_SONG';
+const REQUEST_SONGS = 'REQUEST_SONGS';
+const RECEIVE_SONGS = 'RECEIVE_SONGS';
 
-export function selectSong(song) {
-    return {
-        type: SELECT_SONG,
-        song
-    };
-}
+export const selectSong = generateActionCreator(SELECT_SONG, 'selectedItem');
+export const requestSongs = generateActionCreator(REQUEST_SONGS);
+export const receiveSongs = generateActionCreator(RECEIVE_SONGS, 'items');
 
-function requestSongs() {
-    return { type: REQUEST_SONGS };
-}
-
-function receiveSongs(json) {
-    return {
-        type: RECEIVE_SONGS,
-        songs: json._embedded.songResourceList
-    };
-}
-
-export function fetchSongs() {
-    return fetchData('/songs', requestSongs, (songs, dispatch) => {
-        dispatch(receiveSongs(songs));
+export function fetchSongs(url) {
+    return fetchData(url, requestSongs, (songs, dispatch) => {
+        dispatch(receiveSongs(songs.content));
     });
 }

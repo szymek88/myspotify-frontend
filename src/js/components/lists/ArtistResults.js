@@ -1,19 +1,20 @@
 import List from './List';
 import { connect } from 'react-redux';
+import { showArtistSection } from '../../actions/centralSectionActions';
 
 const mapStateToProps = state => {
     return {
-        items: mapArtists(state.searchResults.results.artists),
+        items: mapArtists(state.artists.items),
         panelHeader: 'Artists'
     };
 };
 
 function mapArtists(artistsResources) {
     return artistsResources.map(artistResource => {
-        const artist = artistResource.artist;
+        const { id, name } = artistResource.artist;
         return {
-            id: artist.id,
-            content: artist.name,
+            id,
+            content: name,
             resource: artistResource
         };
     });
@@ -21,7 +22,7 @@ function mapArtists(artistsResources) {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: artist => console.log('artist ' + artist.artist.id + ' clicked')
+        onClick: artist => dispatch(showArtistSection(artist))
     };
 };
 

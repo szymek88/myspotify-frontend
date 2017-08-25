@@ -1,9 +1,5 @@
+import generateActionCreator from './generateActionCreator';
 
 export const SELECT_PAGE = 'SELECT_PAGE';
 
-export function selectPage(page) {
-    return {
-        type: SELECT_PAGE,
-        page
-    };
-}
+export const selectPage = generateActionCreator(SELECT_PAGE, 'value');
