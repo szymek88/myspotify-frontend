@@ -4,18 +4,23 @@ import App from './js/components/App';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { fetchSongs } from './js/actions/songActions';
 import { Provider } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
-import { selectedSongId, songs } from './js/reducers/songReducers';
+import { selectedSong } from './js/reducers/songReducers';
 import { suggestions } from './js/reducers/suggestionsReducer';
 import { searchResults } from './js/reducers/searchReducer';
+import { centralSection } from './js/reducers/centralSectionReducers';
+import { selectedAlbum } from './js/reducers/albumReducers';
+import './css/index.css'
+import { activePage } from './js/reducers/pageReducers';
 
 const rootReducer = combineReducers({
-    selectedSongId,
-    songs,
+    selectedSong,
+    selectedAlbum,
     suggestions,
-    searchResults
+    searchResults,
+    centralSection,
+    activePage
 });
 const loggerMiddleware = createLogger();
 
@@ -26,8 +31,6 @@ const store = createStore(
         loggerMiddleware
     )
 );
-
-store.dispatch(fetchSongs());
 
 ReactDOM.render(
     <Provider store={store}>

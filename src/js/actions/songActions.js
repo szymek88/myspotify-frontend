@@ -4,10 +4,10 @@ export const SELECT_SONG = 'SELECT_SONG';
 export const REQUEST_SONGS = 'REQUEST_SONGS';
 export const RECEIVE_SONGS = 'RECEIVE_SONGS';
 
-export function selectSong(songId) {
+export function selectSong(song) {
     return {
         type: SELECT_SONG,
-        songId
+        song
     };
 }
 

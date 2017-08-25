@@ -9,7 +9,8 @@ const initialSearchResults = {
 
 const initialState = {
     results: initialSearchResults,
-    isFetching: false
+    isFetching: false,
+    errorMsg: ''
 };
 
 export function searchResults(state = initialState, action) {

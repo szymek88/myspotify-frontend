@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { selectSong } from '../actions/songActions';
+import { selectSong } from '../../actions/songActions';
 import List from './List';
 
 const mapStateToProps = state => {
@@ -10,19 +10,20 @@ const mapStateToProps = state => {
 };
 
 function mapSongs(songsResources) {
-    const songs = songsResources.map(songResources => songResources.song);
-    return songs.map(song => {
+    return songsResources.map(songResource => {
+        const song = songResource.song;
         return {
             id: song.id,
             header: song.name,
-            content: song.artist.name
+            content: song.artist.name,
+            resource: songResource
         };
     });
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: id => dispatch(selectSong(id))
+        onClick: song => dispatch(selectSong(song))
     };
 };
 

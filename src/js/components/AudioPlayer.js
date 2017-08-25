@@ -14,17 +14,10 @@ AudioPlayer.propTypes = {
   songUrl: PropTypes.string.isRequired
 };
 
-function getSongUrl(state) {
-    const songResource = state.songs.songResources.find(songResource => {
-        return songResource.song.id === state.selectedSongId;
-    });
-
-    return songResource._links.audio.href;
-}
-
 const mapStateToProps = (state) => {
     return {
-        songUrl: getSongUrl(state)
+        songUrl: state.selectedSong.links
+            .find(link => link.rel === 'audio').href
     };
 };
 

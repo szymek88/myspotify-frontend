@@ -7,6 +7,8 @@ import '../../css/SearchInput.css';
 import { fetchSearchResults } from '../actions/searchActions';
 import { InputGroup } from 'react-bootstrap';
 import SearchAddon from './SearchAddon';
+import { showSection } from '../actions/centralSectionActions';
+import { CentralSections } from '../CentralSections';
 
 function SearchInput(props) {
     const inputProps = {
@@ -64,7 +66,10 @@ const mapDispatchToProps = (dispatch) => {
         onChange: (event, { newValue }) => dispatch(updateValue(newValue)),
         onSuggestionsFetchRequested: ({ value }) => dispatch(fetchSuggestions(value)),
         onSuggestionsClearRequested: () => dispatch(clearSuggestions()),
-        onSuggestionSelected: (event) => dispatch(fetchSearchResults()),
+        onSuggestionSelected: event => {
+            dispatch(fetchSearchResults());
+            dispatch(showSection(CentralSections.SEARCH_RESULTS));
+        },
         onKeyDown: event => onKeyDown(event, dispatch)
     };
 };
@@ -73,6 +78,7 @@ function onKeyDown(event, dispatch) {
     if (event.key === 'Enter') {
         dispatch(fetchSearchResults());
         dispatch(clearSuggestions());
+        dispatch(showSection(CentralSections.SEARCH_RESULTS));
     }
 }
 

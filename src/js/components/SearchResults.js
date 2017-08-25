@@ -1,16 +1,21 @@
 import React from 'react';
-import Tracklist from './Tracklist';
-import AlbumList from './AlbumList';
-import ArtistList from './ArtistList';
+import SongResults from './lists/SongResults';
+import AlbumResults from './lists/AlbumResults';
+import ArtistResults from './lists/ArtistResults';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Col } from 'react-bootstrap';
 
 function SearchResults(props) {
     return (
         <div>
-            { props.songsCount > 0 && <Tracklist/> }
-            { props.albumsCount > 0 && <AlbumList/> }
-            { props.artistsCount > 0 && <ArtistList/> }
+            <Col md={6}>
+                { props.songsCount > 0 && <SongResults/> }
+                { props.albumsCount > 0 && <AlbumResults/> }
+            </Col>
+            <Col md={6}>
+                { props.artistsCount > 0 && <ArtistResults/> }
+            </Col>
         </div>
     );
 }

@@ -1,28 +1,30 @@
-import { SELECT_SONG, REQUEST_SONGS, RECEIVE_SONGS } from '../actions/songActions';
+import { SELECT_ALBUM, REQUEST_ALBUM_SONGS,
+    RECEIVE_ALBUM_SONGS } from '../actions/albumActions';
 import { SIGNAL_ERROR } from '../actions/genericActions';
 
-export function selectedSong(state = {}, action) {
-    return (action.type === SELECT_SONG) ? action.song : state;
-}
-
 const initialState = {
-    songResources: [],
+    albumResource: {},
+    songs: [],
     isFetching: false,
     errorMsg: ''
 };
 
-// might be helpful in the future
-export function songs(state = initialState, action) {
+export function selectedAlbum(state = initialState, action) {
     switch (action.type) {
-        case REQUEST_SONGS:
+        case SELECT_ALBUM:
+            return {
+                ...state,
+                albumResource: action.album
+            };
+        case REQUEST_ALBUM_SONGS:
             return {
                 ...state,
                 isFetching: true
             };
-        case RECEIVE_SONGS:
+        case RECEIVE_ALBUM_SONGS:
             return {
                 ...state,
-                songResources: action.songs,
+                songs: action.songs,
                 isFetching: false
             };
         case SIGNAL_ERROR:
@@ -35,3 +37,4 @@ export function songs(state = initialState, action) {
             return state;
     }
 }
+

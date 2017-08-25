@@ -9,18 +9,19 @@ const mapStateToProps = state => {
 };
 
 function mapArtists(artistsResources) {
-    const artists = artistsResources.map(artistsResources => artistsResources.artist);
-    return artists.map(artist => {
+    return artistsResources.map(artistResource => {
+        const artist = artistResource.artist;
         return {
             id: artist.id,
-            content: artist.name
+            content: artist.name,
+            resource: artistResource
         };
     });
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: id => console.log('artist ' + id + ' clicked')
+        onClick: artist => console.log('artist ' + artist.artist.id + ' clicked')
     };
 };
 

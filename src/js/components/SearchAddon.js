@@ -4,6 +4,8 @@ import '../../css/SearchAddon.css';
 import PropTypes from 'prop-types';
 import { fetchSearchResults } from '../actions/searchActions';
 import { connect } from 'react-redux';
+import { showSection } from '../actions/centralSectionActions';
+import { CentralSections } from '../CentralSections';
 
 function SearchAddon({ onClick }) {
     return (
@@ -19,7 +21,10 @@ SearchAddon.propTypes = {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: () => dispatch(fetchSearchResults())
+        onClick: () => {
+            dispatch(fetchSearchResults());
+            dispatch(showSection(CentralSections.SEARCH_RESULTS));
+        }
     };
 };
 
