@@ -13,6 +13,7 @@ import { SHOW_SECTION } from './js/actions/centralSectionActions';
 import { SELECT_PAGE } from './js/actions/pageActions';
 import { SUBMIT_SEARCH_QUERY } from './js/actions/searchActions';
 import SearchResults from './js/components/SearchResults';
+import playlist from './js/reducers/playlistReducer';
 
 const songs = createReducer('SONG');
 const albums = createReducer('ALBUM');
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
     suggestions,
     centralComponent,
     activePage,
-    submittedSearchQuery
+    submittedSearchQuery,
+    playlist
 });
 const loggerMiddleware = createLogger();
 

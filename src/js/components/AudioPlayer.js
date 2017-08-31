@@ -4,15 +4,18 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../../css/AudioPlayer.css';
 import  { findLink } from '../mappingUtils';
+import { nextSong } from '../actions/playlistActions';
 
-function AudioPlayer({ songUrl }) {
+function AudioPlayer({ songUrl, onEnded }) {
     return (
-        <ReactAudioPlayer src={songUrl} controls autoPlay className="audio"/>
+        <ReactAudioPlayer src={songUrl} onEnded={onEnded} controls
+                          autoPlay className="audio"/>
     );
 };
 
 AudioPlayer.propTypes = {
-  songUrl: PropTypes.string.isRequired
+    songUrl: PropTypes.string.isRequired,
+    onEnded: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -21,4 +24,10 @@ const mapStateToProps = (state) => {
     };
 };
 
-export default connect(mapStateToProps)(AudioPlayer);
+const mapDispatchToProps = dispatch => {
+    return {
+        onEnded: () => dispatch(nextSong())
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AudioPlayer);

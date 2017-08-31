@@ -6,6 +6,7 @@ import '../../css/GenericSection.css';
 import Spinner from 'react-spinkit';
 import Songs from './lists/Songs';
 import ListPagination from './ListPagination';
+import PlaySongsButton from './PlaySongsButton';
 
 export default function GenericSection(props) {
     let rightCol = null;
@@ -30,7 +31,7 @@ export default function GenericSection(props) {
                 <Col md={6}>
                     { props.header }
                     <ButtonGroup>
-                        <Button><Glyphicon glyph="play"/> { props.playButtonText }</Button>
+                        <PlaySongsButton><Glyphicon glyph="play"/> { props.playButtonText }</PlaySongsButton>
                         <Button><Glyphicon glyph="star"/> Add to Favorites</Button>
                     </ButtonGroup>
                     <Image src={ props.imageUrl } className="image" thumbnail/>
