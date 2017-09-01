@@ -1,12 +1,12 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
 import { updateValue, fetchSuggestions, clearSuggestions }
-    from '../actions/suggestionsActions';
+    from '../../actions/suggestionsActions';
 import { connect } from 'react-redux';
-import '../../css/SearchInput.css';
+import '../../../css/SearchInput.css';
 import { InputGroup } from 'react-bootstrap';
 import SearchAddon from './SearchAddon';
-import { showSearchResults } from '../actions/centralSectionActions';
+import { showSearchResults } from '../../actions/centralComponentActions';
 
 function SearchInput(props) {
     const inputProps = {

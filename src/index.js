@@ -9,10 +9,10 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { suggestions } from './js/reducers/suggestionsReducer';
 import './css/index.css'
 import { createReducer, createSingleActionReducer } from './js/reducers/reducerFactories';
-import { SHOW_SECTION } from './js/actions/centralSectionActions';
+import { SHOW_SECTION } from './js/actions/centralComponentActions';
 import { SELECT_PAGE } from './js/actions/pageActions';
 import { SUBMIT_SEARCH_QUERY } from './js/actions/searchActions';
-import SearchResults from './js/components/SearchResults';
+import SearchResults from './js/components/search/SearchResults';
 import playlist from './js/reducers/playlistReducer';
 
 const songs = createReducer('SONG');

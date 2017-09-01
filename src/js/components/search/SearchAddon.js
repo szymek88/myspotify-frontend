@@ -1,9 +1,9 @@
 import React from 'react';
 import { InputGroup, Glyphicon } from 'react-bootstrap';
-import '../../css/SearchAddon.css';
+import '../../../css/SearchAddon.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { showSearchResults } from '../actions/centralSectionActions';
+import { showSearchResults } from '../../actions/centralComponentActions';
 
 function SearchAddon({ onClick }) {
     return (

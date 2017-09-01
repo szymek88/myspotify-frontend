@@ -1,4 +1,5 @@
-import { SET_PLAYLIST, INCREMENT_INDEX } from '../actions/playlistActions';
+import { SET_PLAYLIST, INCREMENT_INDEX,
+    DECREMENT_INDEX } from '../actions/playlistActions';
 
 const initialState = {
     songs: [],
@@ -17,6 +18,11 @@ export default function playlist(state = initialState, action) {
             return {
                 ...state,
                 index: state.index + 1
+            };
+        case DECREMENT_INDEX:
+            return {
+                ...state,
+                index: state.index - 1
             };
         default:
             return state;

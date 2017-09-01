@@ -2,9 +2,9 @@ import generateActionCreator from './generateActionCreator';
 import { selectAlbum } from './albumActions';
 import { submitSearchQuery } from './searchActions';
 import { selectArtist } from './artistActions';
-import SearchResults from '../components/SearchResults';
-import AlbumSection from '../components/AlbumSection';
-import ArtistSection from '../components/ArtistSection';
+import SearchResults from '../components/search/SearchResults';
+import AlbumSection from '../components/sections/AlbumSection';
+import ArtistSection from '../components/sections/ArtistSection';
 import React from 'react';
 
 export const SHOW_SECTION = 'SHOW_SECTION';

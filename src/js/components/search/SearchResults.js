@@ -1,13 +1,13 @@
 import React from 'react';
-import SongResults from './lists/SongResults';
-import AlbumResults from './lists/AlbumResults';
-import ArtistResults from './lists/ArtistResults';
+import SongResults from '../lists/SongResults';
+import AlbumResults from '../lists/AlbumResults';
+import ArtistResults from '../lists/ArtistResults';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Col, Row, Well, PageHeader } from 'react-bootstrap';
 import Spinner from 'react-spinkit';
-import '../../css/SearchResults.css';
-import { search } from '../actions/searchActions';
+import '../../../css/SearchResults.css';
+import { search } from '../../actions/searchActions';
 
 class SearchResults extends React.Component {
 

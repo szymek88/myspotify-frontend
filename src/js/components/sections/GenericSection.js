@@ -2,11 +2,11 @@ import React from 'react';
 import { Well, Row, Col, ButtonGroup, Button,
     Glyphicon, Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
-import '../../css/GenericSection.css';
+import '../../../css/GenericSection.css';
 import Spinner from 'react-spinkit';
-import Songs from './lists/Songs';
-import ListPagination from './ListPagination';
-import PlaySongsButton from './PlaySongsButton';
+import Songs from '../lists/Songs';
+import ListPagination from '../ListPagination';
+import PlaySongsButton from '../buttons/PlaySongsButton';
 
 export default function GenericSection(props) {
     let rightCol = null;

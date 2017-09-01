@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import GenericSection from './GenericSection';
 import { PageHeader } from 'react-bootstrap';
-import { fetchSongs } from '../actions/songActions';
+import { fetchSongs } from '../../actions/songActions';
 import PropTypes from 'prop-types';
-import { findLink } from '../mappingUtils';
+import { findLink } from '../../mappingUtils';
 import { connect } from 'react-redux';
 
 class ArtistSection extends Component {

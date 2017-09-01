@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar } from 'react-bootstrap';
-import SearchForm from './SearchInput';
+import SearchForm from './search/SearchInput';
 import { Col, Glyphicon } from 'react-bootstrap';
 import '../../css/NavigationBar.css';
 

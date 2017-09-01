@@ -5,22 +5,37 @@ import { connect } from 'react-redux';
 import '../../css/AudioPlayer.css';
 import  { findLink } from '../mappingUtils';
 import { nextSong } from '../actions/playlistActions';
+import { Image, Well, ButtonToolbar } from 'react-bootstrap';
+import NowPlaying from './NowPlaying';
+import NextSongButton from './buttons/NextSongButton';
+import PrevSongButton from './buttons/PrevSongButton';
 
-function AudioPlayer({ songUrl, onEnded }) {
+function AudioPlayer(props) {
     return (
-        <ReactAudioPlayer src={songUrl} onEnded={onEnded} controls
-                          autoPlay className="audio"/>
+        <Well>
+            <NowPlaying/>
+            <Image src={ props.imageUrl } thumbnail/>
+            <ButtonToolbar className="buttonToolbar">
+                <PrevSongButton/>
+                <NextSongButton/>
+            </ButtonToolbar>
+            <ReactAudioPlayer src={props.songUrl} onEnded={props.onEnded}
+                              controls autoPlay className="audio"/>
+        </Well>
     );
 };
 
 AudioPlayer.propTypes = {
     songUrl: PropTypes.string.isRequired,
-    onEnded: PropTypes.func.isRequired
+    onEnded: PropTypes.func.isRequired,
+    imageUrl: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state) => {
+    const links = state.songs.selectedItem.links;
     return {
-        songUrl: findLink(state.songs.selectedItem.links, 'audio')
+        songUrl: findLink(links, 'audio'),
+        imageUrl: findLink(links, 'image')
     };
 };
 

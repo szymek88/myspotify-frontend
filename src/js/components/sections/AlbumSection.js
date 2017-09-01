@@ -3,8 +3,8 @@ import { PageHeader } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import GenericSection from './GenericSection';
-import { findLink } from '../mappingUtils';
-import { fetchSongs } from '../actions/songActions';
+import { findLink } from '../../mappingUtils';
+import { fetchSongs } from '../../actions/songActions';
 
 class AlbumSection extends Component {
 
