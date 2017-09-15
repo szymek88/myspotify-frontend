@@ -1,5 +1,5 @@
-import { UPDATE_VALUE, CLEAR_SUGGESTIONS,
-    REQUEST_SUGGESTIONS, RECEIVE_SUGGESTIONS } from '../actions/suggestionsActions'
+import { UPDATE_SEARCH_TEXT, CLEAR_SUGGESTIONS,
+    RECEIVE_SUGGESTIONS } from '../actions/suggestionsActions';
 
 const initialSuggestions = {
     songSuggestions: [],
@@ -8,27 +8,21 @@ const initialSuggestions = {
 };
 
 const initialState = {
-    value: '',
-    suggestions: initialSuggestions,
-    isFetching: false
+    searchText: '',
+    suggestions: initialSuggestions
 };
 
 export function suggestions(state = initialState, action) {
     switch (action.type) {
-        case UPDATE_VALUE:
+        case UPDATE_SEARCH_TEXT:
             return {
                 ...state,
-                value: action.value
+                searchText: action.searchText
             };
         case CLEAR_SUGGESTIONS:
             return {
                 ...state,
                 suggestions: initialSuggestions
-            };
-        case REQUEST_SUGGESTIONS:
-            return {
-                ...state,
-                isFetching: true
             };
         case RECEIVE_SUGGESTIONS:
             return receiveSuggestions(state, action);
@@ -38,17 +32,12 @@ export function suggestions(state = initialState, action) {
 }
 
 function receiveSuggestions(state, action) {
-    const isValueChanged = action.value !== state.value;
-    if (isValueChanged) {
+    const isSearchTextChanged = action.searchText !== state.searchText;
+    if (!isSearchTextChanged) {
         return {
             ...state,
-            isFetching: false
+            suggestions: action.suggestions
         };
     }
-
-    return {
-        ...state,
-        suggestions: action.suggestions,
-        isFetching: false
-    };
+    return state;
 }

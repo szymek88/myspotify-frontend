@@ -1,19 +1,19 @@
 import React from 'react';
 import Autosuggest from 'react-autosuggest';
-import { updateValue, fetchSuggestions, clearSuggestions }
+import { updateSearchText, fetchSuggestions, clearSuggestions }
     from '../../actions/suggestionsActions';
 import { connect } from 'react-redux';
 import '../../../css/SearchInput.css';
 import { InputGroup } from 'react-bootstrap';
 import SearchAddon from './SearchAddon';
-import { showSearchResults } from '../../actions/centralComponentActions';
+import { showSearchResults } from '../../actions/mainComponentActions';
 
 function SearchInput(props) {
     const inputProps = {
         placeholder: "Search for songs, albums, and artists...",
-        value: props.value,
+        value: props.searchText,
         onChange: props.onChange,
-        onKeyDown: props.onKeyDown
+        onKeyDown: event => props.onKeyDown(event, props.searchText)
     };
 
     const renderInputComponent = inputProps => (
@@ -36,7 +36,7 @@ function SearchInput(props) {
             multiSection={true}
             renderSectionTitle={ section => <strong>{ section.category }</strong>}
             getSectionSuggestions={ section => section.suggestions }
-            onSuggestionSelected={props.onSuggestionSelected}
+            onSuggestionSelected={() => props.onSuggestionSelected(props.searchText)}
             renderInputComponent={renderInputComponent}
         />
     );
@@ -51,9 +51,9 @@ function transformSuggestions(suggestions) {
 }
 
 const mapStateToProps = (state) => {
-    const { value, suggestions, isFetching } = state.suggestions;
+    const { searchText, suggestions, isFetching } = state.suggestions;
     return {
-        value,
+        searchText,
         suggestions: transformSuggestions(suggestions),
         isFetching
     };
@@ -61,20 +61,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onChange: (event, { newValue }) => dispatch(updateValue(newValue)),
+        onChange: (event, { newValue }) => dispatch(updateSearchText(newValue)),
         onSuggestionsFetchRequested: ({ value }) => dispatch(fetchSuggestions(value)),
         onSuggestionsClearRequested: () => dispatch(clearSuggestions()),
-        onSuggestionSelected: event => {
-            dispatch(showSearchResults());
+        onSuggestionSelected: searchText => {
+            dispatch(showSearchResults(searchText));
         },
-        onKeyDown: event => onKeyDown(event, dispatch)
+        onKeyDown: (event, searchText) => onKeyDown(event, dispatch, searchText)
     };
 };
 
-function onKeyDown(event, dispatch) {
+function onKeyDown(event, dispatch, searchText) {
     if (event.key === 'Enter') {
         dispatch(clearSuggestions());
-        dispatch(showSearchResults());
+        dispatch(showSearchResults(searchText));
     }
 }
 

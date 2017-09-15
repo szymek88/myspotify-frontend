@@ -14,3 +14,10 @@ export function fetchSongs(url) {
         dispatch(receiveSongs(songs.content));
     });
 }
+
+export function clearSong() {
+    return {
+        type: SELECT_SONG,
+        selectedItem: {}
+    }
+}

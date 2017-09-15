@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import List from './List';
-import { showAlbumSection } from '../../actions/centralComponentActions';
+import { showAlbumSection } from '../../actions/mainComponentActions';
 
 const mapStateToProps = state => {
     return {

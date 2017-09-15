@@ -1,3 +1,5 @@
+export const TOKEN_KEY = 'authToken';
+
 export function findLink(links, linkRel) {
     return links.find(link => link.rel === linkRel).href;
 }
@@ -16,4 +18,13 @@ export function mapSongs(songsResources, hasHeader) {
         }
         return result;
     });
+}
+
+export function appendAuthToken(url) {
+    const token = localStorage.getItem(TOKEN_KEY);
+    return `${url}?access_token=${token}`;
+}
+
+export function isAuthenticated() {
+    return localStorage.getItem(TOKEN_KEY) !== null;
 }

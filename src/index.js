@@ -9,16 +9,20 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { suggestions } from './js/reducers/suggestionsReducer';
 import './css/index.css'
 import { createReducer, createSingleActionReducer } from './js/reducers/reducerFactories';
-import { SHOW_SECTION } from './js/actions/centralComponentActions';
+import { SHOW_COMPONENT } from './js/actions/mainComponentActions';
 import { SELECT_PAGE } from './js/actions/pageActions';
 import { SUBMIT_SEARCH_QUERY } from './js/actions/searchActions';
 import SearchResults from './js/components/search/SearchResults';
 import playlist from './js/reducers/playlistReducer';
+import { auth } from './js/reducers/authReducer';
+import { isAuthenticated } from './js/utils';
+import LoginForm from './js/components/forms/LoginForm';
 
 const songs = createReducer('SONG');
 const albums = createReducer('ALBUM');
 const artists = createReducer('ARTIST');
-const centralComponent = createSingleActionReducer(<SearchResults/>, SHOW_SECTION);
+const mainComponent = createSingleActionReducer(
+    isAuthenticated() ? <SearchResults/> : <LoginForm/>, SHOW_COMPONENT);
 const activePage = createSingleActionReducer(1, SELECT_PAGE);
 const submittedSearchQuery = createSingleActionReducer('', SUBMIT_SEARCH_QUERY);
 
@@ -27,10 +31,11 @@ const rootReducer = combineReducers({
     albums,
     artists,
     suggestions,
-    centralComponent,
+    mainComponent,
     activePage,
     submittedSearchQuery,
-    playlist
+    playlist,
+    auth
 });
 const loggerMiddleware = createLogger();
 

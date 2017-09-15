@@ -3,26 +3,33 @@ import { InputGroup, Glyphicon } from 'react-bootstrap';
 import '../../../css/SearchAddon.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { showSearchResults } from '../../actions/centralComponentActions';
+import { showSearchResults } from '../../actions/mainComponentActions';
 
-function SearchAddon({ onClick }) {
+function SearchAddon({ onClick, searchText }) {
     return (
-        <InputGroup.Addon className="addon" onClick={onClick}>
+        <InputGroup.Addon className="addon" onClick={() => onClick(searchText)}>
             <Glyphicon glyph="search"/>
         </InputGroup.Addon>
     );
 }
 
 SearchAddon.propTypes = {
-    onClick: PropTypes.func.isRequired
+    onClick: PropTypes.func.isRequired,
+    searchText: PropTypes.string.isRequired
+};
+
+const mapStateToProps = state => {
+    return {
+        searchText: state.suggestions.searchText
+    };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onClick: () => {
-            dispatch(showSearchResults());
+        onClick: searchText => {
+            dispatch(showSearchResults(searchText));
         }
     };
 };
 
-export default connect(null, mapDispatchToProps)(SearchAddon);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchAddon);

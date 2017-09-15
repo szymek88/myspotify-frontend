@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { selectSong } from '../../actions/songActions';
 import List from './List';
-import { mapSongs } from '../../mappingUtils';
+import { mapSongs } from '../../utils';
 
 const mapStateToProps = state => {
     return {

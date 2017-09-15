@@ -3,12 +3,13 @@ import ReactAudioPlayer from 'react-audio-player';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../../css/AudioPlayer.css';
-import  { findLink } from '../mappingUtils';
+import  { findLink } from '../utils';
 import { nextSong } from '../actions/playlistActions';
 import { Image, Well, ButtonToolbar } from 'react-bootstrap';
 import NowPlaying from './NowPlaying';
 import NextSongButton from './buttons/NextSongButton';
 import PrevSongButton from './buttons/PrevSongButton';
+import { appendAuthToken } from '../utils';
 
 function AudioPlayer(props) {
     return (
@@ -34,8 +35,8 @@ AudioPlayer.propTypes = {
 const mapStateToProps = (state) => {
     const links = state.songs.selectedItem.links;
     return {
-        songUrl: findLink(links, 'audio'),
-        imageUrl: findLink(links, 'image')
+        songUrl: appendAuthToken(findLink(links, 'audio')),
+        imageUrl: appendAuthToken(findLink(links, 'image'))
     };
 };
 

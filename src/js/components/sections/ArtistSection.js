@@ -3,8 +3,9 @@ import GenericSection from './GenericSection';
 import { PageHeader } from 'react-bootstrap';
 import { fetchSongs } from '../../actions/songActions';
 import PropTypes from 'prop-types';
-import { findLink } from '../../mappingUtils';
+import { findLink } from '../../utils';
 import { connect } from 'react-redux';
+import { appendAuthToken } from '../../utils';
 
 class ArtistSection extends Component {
 
@@ -36,7 +37,7 @@ const mapStateToProps = state => {
     const { artist, links } = state.artists.selectedItem;
     return {
         artistName: artist.name,
-        imageUrl: findLink(links, 'image'),
+        imageUrl: appendAuthToken(findLink(links, 'image')),
         isFetching: state.songs.isFetching,
         songsUrl: findLink(links, 'songs')
     };

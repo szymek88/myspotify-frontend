@@ -2,25 +2,17 @@ import { fetchData } from './genericActions';
 import { requestSongs, receiveSongs } from './songActions';
 import { requestAlbums, receiveAlbums } from './albumActions';
 import { requestArtists, receiveArtists } from './artistActions';
+import generateActionCreator from './generateActionCreator';
 
 export const SUBMIT_SEARCH_QUERY = 'SUBMIT_SEARCH_QUERY';
 
-export function submitSearchQuery() {
-    return (dispatch, getState) => {
-        dispatch({
-            type: SUBMIT_SEARCH_QUERY,
-            value: getState().suggestions.value
-        });
-    };
-}
+export const submitSearchQuery = generateActionCreator(SUBMIT_SEARCH_QUERY, 'value');
 
 export function search(query) {
-    return (dispatch) => {
-        const url = '/search?q=' + query.replace(" ", "+");
-        dispatch(fetchData(url, beginSearching, (results, dispatch) => {
-            dispatch(finishSearching(results));
-        }));
-    };
+    const url = '/search?q=' + query.replace(" ", "+");
+    return fetchData(url, beginSearching, (results, dispatch) => {
+        dispatch(finishSearching(results));
+    });
 }
 
 function beginSearching() {

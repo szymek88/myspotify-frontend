@@ -3,8 +3,13 @@ import { Navbar } from 'react-bootstrap';
 import SearchForm from './search/SearchInput';
 import { Col, Glyphicon } from 'react-bootstrap';
 import '../../css/NavigationBar.css';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import LogoutButton from './buttons/LogoutButton';
+import ShowSignUpButton from './buttons/ShowSignUpButton';
+import ShowLoginButton from './buttons/ShowLoginButton';
 
-function NavigationBar() {
+function NavigationBar({ isAuthenticated, isSigningUp }) {
     return (
         <Navbar>
             <Col md={3}>
@@ -17,11 +22,36 @@ function NavigationBar() {
                     </Navbar.Brand>
                 </Navbar.Header>
             </Col>
-            <Col md={4} mdOffset={3}>
-                <SearchForm/>
+            { isAuthenticated && (
+                <Col md={4} mdOffset={3}>
+                    <SearchForm/>
+                </Col>
+            )}
+            <Col md={1} mdOffset={isAuthenticated ? 1 : 8}>
+                { getButton(isAuthenticated, isSigningUp) }
             </Col>
         </Navbar>
     );
 }
 
-export default NavigationBar;
+function getButton(isAuthenticated, isSigningUp) {
+    if (!isAuthenticated) {
+        return isSigningUp ? <ShowLoginButton/> : <ShowSignUpButton/>;
+    }
+    return <LogoutButton/>;
+}
+
+NavigationBar.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
+    isSigningUp: PropTypes.bool.isRequired
+};
+
+const mapStateToProps = state => {
+    const { isAuthenticated, isSigningUp } = state.auth;
+    return {
+        isAuthenticated,
+        isSigningUp
+    };
+};
+
+export default connect(mapStateToProps)(NavigationBar);

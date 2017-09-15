@@ -1,7 +1,7 @@
 import { selectSong } from '../../actions/songActions';
 import { connect } from 'react-redux';
 import List from './List';
-import { mapSongs } from '../../mappingUtils';
+import { mapSongs } from '../../utils';
 
 export const PAGE_SIZE = 6;
 
