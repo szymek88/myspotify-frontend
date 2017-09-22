@@ -1,28 +1,63 @@
-import { SET_PLAYLIST, INCREMENT_INDEX,
-    DECREMENT_INDEX } from '../actions/playlistActions';
+import { genericInitialState, createReducer } from './reducerFactories';
+import { SELECT_PLAYLIST, REQUEST_PLAYLISTS, RECEIVE_PLAYLISTS,
+    SET_FORM_VISIBLE, CHANGE_PLAYLIST_NAME, ADD_PLAYLIST,
+    SET_MODAL_VISIBLE, SET_PLAYLIST_SONGS_VISIBLE, REMOVE_PLAYLIST,
+    SET_DELETE_MODE } from '../actions/playlistActions';
+import { SIGNAL_ERROR } from '../actions/genericActions';
 
 const initialState = {
-    songs: [],
-    index: 0,
+    ...genericInitialState,
+    isFormVisible: false,
+    playlistName: '',
+    isModalVisible: false,
+    arePlaylistSongsVisible: false,
+    isDeleteMode: false
 };
 
-export default function playlist(state = initialState, action) {
+const partialReducer = createReducer('PLAYLIST');
+
+// TODO: refactor
+export default function playlists(state = initialState, action) {
     switch (action.type) {
-        case SET_PLAYLIST:
+        case SELECT_PLAYLIST:
+        case REQUEST_PLAYLISTS:
+        case RECEIVE_PLAYLISTS:
+        case SIGNAL_ERROR:
+            return partialReducer(state, action);
+        case SET_FORM_VISIBLE:
             return {
                 ...state,
-                songs: action.songs,
-                index: 0
+                isFormVisible: action.isFormVisible
             };
-        case INCREMENT_INDEX:
+        case CHANGE_PLAYLIST_NAME:
             return {
                 ...state,
-                index: state.index + 1
+                playlistName: action.playlistName
             };
-        case DECREMENT_INDEX:
+        case ADD_PLAYLIST:
             return {
                 ...state,
-                index: state.index - 1
+                items: state.items.concat(action.playlistResource)
+            };
+        case SET_MODAL_VISIBLE:
+            return {
+                ...state,
+                isModalVisible: action.isModalVisible
+            };
+        case SET_PLAYLIST_SONGS_VISIBLE:
+            return {
+                ...state,
+                arePlaylistSongsVisible: action.arePlaylistSongsVisible
+            };
+        case REMOVE_PLAYLIST:
+            return {
+                ...state,
+                items: state.items.filter(p => p.playlist.id !== action.playlistId)
+            };
+        case SET_DELETE_MODE:
+            return {
+                ...state,
+                isDeleteMode: action.isDeleteMode
             };
         default:
             return state;

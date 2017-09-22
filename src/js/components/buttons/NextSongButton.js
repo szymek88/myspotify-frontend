@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import '../../../css/NextSongButton.css';
-import { nextSong } from '../../actions/playlistActions';
+import { nextSong } from '../../actions/playQueueActions';
 import { connect } from 'react-redux';
 
 function NextSongButton({onClick, isDisabled}) {
@@ -13,7 +13,7 @@ function NextSongButton({onClick, isDisabled}) {
 }
 
 const mapStateToProps = state => {
-    const { songs, index } = state.playlist;
+    const { songs, index } = state.playQueue;
     return {
         isDisabled: index >= songs.length - 1
     };

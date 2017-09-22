@@ -1,8 +1,10 @@
 import generateActionCreator from './generateActionCreator';
-import fetch from 'isomorphic-fetch';
 import { TOKEN_KEY } from '../utils';
 import { clearSong } from './songActions';
-import { showSearchResults, showLoginForm } from './mainComponentActions';
+import { showLoginForm, showComponent } from './mainComponentActions';
+import { postData } from './genericActions';
+import PlaylistsSection from '../components/sections/PlaylistsSection';
+import React from 'react';
 
 const CHANGE_USERNAME = 'CHANGE_USERNAME';
 const CHANGE_PASSWORD = 'CHANGE_PASSWORD';
@@ -33,20 +35,28 @@ function saveToken(response) {
 
 export function login(credentials) {
     return (dispatch, getState) => {
+        if (areCredentialsEmpty(credentials)) {
+            dispatch(setErrorMsg('Fill all fields.'));
+            return;
+        }
         const onSuccess = (dispatch, response) => {
             saveToken(response);
             dispatch(receiveLogin());
-            dispatch(showSearchResults(
-                getState().suggestions.searchText));
+            dispatch(showComponent(<PlaylistsSection/>));
         };
         const args = {
-            credentials,
-            validateCredentials: areCredentialsFilled,
             url: '/login',
-            onSuccess
+            body: getCredentialsBody(credentials),
+            onSuccess,
+            setErrorMsg
         };
-        dispatch(postCredentials(args));
+        dispatch(postData(args));
     }
+}
+
+function getCredentialsBody({ username, password }) {
+    return `{ "username": "${username}",` +
+        ` "password": "${password}" }`
 }
 
 export function logout() {
@@ -58,57 +68,42 @@ export function logout() {
     };
 }
 
-function areCredentialsFilled({ username, password }, dispatch) {
-    if (username === '' || password === '') {
-        dispatch(setErrorMsg('Fill all fields.'));
-        return false;
-    }
-    return true;
+function areCredentialsEmpty({ username, password }) {
+    return username === '' || password === '';
+}
+
+function arePasswordsEqual({ password, passwordConfirmation }) {
+    return password === passwordConfirmation;
 }
 
 export function signUp(credentials) {
-    const validateCredentials = (credentials, dispatch) => {
-        if (credentials.password !== credentials.passwordConfirmation) {
-            dispatch(setErrorMsg('Passwords are different.'));
-            return false;
-        }
-        return areCredentialsFilled(credentials, dispatch);
-    };
-    const onSuccess = dispatch => {
-        dispatch(setSignedUp(true));
-        dispatch(setErrorMsg(''));
-    };
-    const args = {
-        credentials,
-        validateCredentials,
-        url: '/sign-up',
-        onSuccess
-    };
-    return postCredentials(args);
-}
-
-function getRequestValues({ username, password }) {
-    return {
-        method: 'POST',
-        headers: new Headers({"Content-Type": "application/json"}),
-        body: `{ "username": "${username}",` +
-        ` "password": "${password}" }`
-    };
-}
-
-function postCredentials({ credentials, validateCredentials, url, onSuccess }) {
     return dispatch => {
         const areCredentialsValid = validateCredentials(credentials, dispatch);
         if (!areCredentialsValid) {
             return;
         }
-        return fetch(url, getRequestValues(credentials))
-            .then(response => {
-                if (response.ok) {
-                    onSuccess(dispatch, response);
-                } else {
-                    dispatch(setErrorMsg(response.statusText));
-                }
-            });
+        const onSuccess = dispatch => {
+            dispatch(setSignedUp(true));
+            dispatch(setErrorMsg(''));
+        };
+        const args = {
+            url: '/sign-up',
+            body: getCredentialsBody(credentials),
+            onSuccess,
+            setErrorMsg
+        };
+        dispatch(postData(args));
     }
+}
+
+function validateCredentials(credentials, dispatch) {
+    if (areCredentialsEmpty(credentials)) {
+        dispatch(setErrorMsg('Fill all fields.'));
+        return false;
+    }
+    if (!arePasswordsEqual(credentials)) {
+        dispatch(setErrorMsg('Passwords are different.'));
+        return false;
+    }
+    return true;
 }

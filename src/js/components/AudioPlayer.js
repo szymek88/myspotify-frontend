@@ -4,18 +4,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import '../../css/AudioPlayer.css';
 import  { findLink } from '../utils';
-import { nextSong } from '../actions/playlistActions';
+import { nextSong } from '../actions/playQueueActions';
 import { Image, Well, ButtonToolbar } from 'react-bootstrap';
 import NowPlaying from './NowPlaying';
 import NextSongButton from './buttons/NextSongButton';
 import PrevSongButton from './buttons/PrevSongButton';
 import { appendAuthToken } from '../utils';
+import AddToPlaylistButton from './buttons/AddToPlaylistButton';
 
 function AudioPlayer(props) {
     return (
         <Well>
             <NowPlaying/>
             <Image src={ props.imageUrl } thumbnail/>
+            <AddToPlaylistButton/>
             <ButtonToolbar className="buttonToolbar">
                 <PrevSongButton/>
                 <NextSongButton/>

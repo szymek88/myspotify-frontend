@@ -9,12 +9,13 @@ import React from 'react';
 import { clearAuthStrings } from './authActions';
 import SignUpForm from '../components/forms/SignUpForm';
 import LoginForm from '../components/forms/LoginForm';
-import { setSigningUp } from './authActions';
 import { setSignedUp } from './authActions';
+import PlaylistSongsSection from '../components/sections/PlaylistSongsSection';
+import { selectPlaylist } from './playlistActions';
 
 export const SHOW_COMPONENT = 'SHOW_COMPONENT';
 
-const showComponent = generateActionCreator(SHOW_COMPONENT, 'value');
+export const showComponent = generateActionCreator(SHOW_COMPONENT, 'value');
 
 export function showSearchResults(searchText) {
     return dispatch => {
@@ -42,7 +43,6 @@ export function showSignUpForm() {
         dispatch(clearAuthStrings());
         dispatch(setSignedUp(false));
         dispatch(showComponent(<SignUpForm/>));
-        dispatch(setSigningUp(true));
     }
 }
 
@@ -50,6 +50,12 @@ export function showLoginForm() {
     return dispatch => {
         dispatch(clearAuthStrings());
         dispatch(showComponent(<LoginForm/>));
-        dispatch(setSigningUp(false));
+    }
+}
+
+export function showPlaylistSongsSection(playlist) {
+    return dispatch => {
+        dispatch(selectPlaylist(playlist));
+        dispatch(showComponent(<PlaylistSongsSection/>));
     }
 }

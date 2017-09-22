@@ -5,6 +5,7 @@ import AudioPlayer from './AudioPlayer';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import WelcomeJumbotron from './WelcomeJumbotron';
+import PlaylistsDialog from './PlaylistsDialog';
 
 function App({ selectedSong, mainComponent, isAuthenticated }) {
     const isAudioPlayerVisible = selectedSong.hasOwnProperty("song");
@@ -38,6 +39,7 @@ function App({ selectedSong, mainComponent, isAuthenticated }) {
         <Grid fluid={true}>
             <Row><NavigationBar/></Row>
             { app }
+            <PlaylistsDialog/>
         </Grid>
     );
 }

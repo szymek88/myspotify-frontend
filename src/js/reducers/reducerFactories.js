@@ -1,13 +1,14 @@
 import { SIGNAL_ERROR } from '../actions/genericActions';
 
+export const genericInitialState = {
+    selectedItem: {},
+    items: [],
+    isFetching: false,
+    errorMsg: ''
+};
+
 export function createReducer(typeName) {
-    const initialState = {
-        selectedItem: {},
-        items: [],
-        isFetching: false,
-        errorMsg: ''
-    };
-    return (state = initialState, action) => {
+    return (state = genericInitialState, action) => {
         switch (action.type) {
             case `SELECT_${typeName}`:
                 return {
@@ -17,7 +18,8 @@ export function createReducer(typeName) {
             case `REQUEST_${typeName}S`:
                 return {
                     ...state,
-                    isFetching: true
+                    isFetching: true,
+                    items: []
                 };
             case `RECEIVE_${typeName}S`:
                 return {

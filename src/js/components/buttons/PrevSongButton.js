@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, Glyphicon } from 'react-bootstrap';
 import '../../../css/PrevSongButton.css';
-import { previousSong } from '../../actions/playlistActions';
+import { previousSong } from '../../actions/playQueueActions';
 import { connect } from 'react-redux';
 
 function PrevSongButton({onClick, isDisabled}) {
@@ -14,7 +14,7 @@ function PrevSongButton({onClick, isDisabled}) {
 
 const mapStateToProps = state => {
     return {
-        isDisabled: state.playlist.index <= 0
+        isDisabled: state.playQueue.index <= 0
     };
 };
 

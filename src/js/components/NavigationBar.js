@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import LogoutButton from './buttons/LogoutButton';
 import ShowSignUpButton from './buttons/ShowSignUpButton';
 import ShowLoginButton from './buttons/ShowLoginButton';
+import PlaylistsButton from './buttons/PlaylistsButton';
 
 function NavigationBar({ isAuthenticated, isSigningUp }) {
     return (
@@ -23,7 +24,12 @@ function NavigationBar({ isAuthenticated, isSigningUp }) {
                 </Navbar.Header>
             </Col>
             { isAuthenticated && (
-                <Col md={4} mdOffset={3}>
+                <Col md={1}>
+                    <PlaylistsButton/>
+                </Col>
+            )}
+            { isAuthenticated && (
+                <Col md={4} mdOffset={2}>
                     <SearchForm/>
                 </Col>
             )}

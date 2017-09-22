@@ -1,6 +1,5 @@
 import React from 'react';
-import { Well, Row, Col, ButtonGroup, Button,
-    Glyphicon, Image } from 'react-bootstrap';
+import { Well, Row, Col, Glyphicon, Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import '../../../css/GenericSection.css';
 import Spinner from 'react-spinkit';
@@ -30,10 +29,7 @@ export default function GenericSection(props) {
             <Row>
                 <Col md={6}>
                     { props.header }
-                    <ButtonGroup>
-                        <PlaySongsButton><Glyphicon glyph="play"/> { props.playButtonText }</PlaySongsButton>
-                        <Button><Glyphicon glyph="star"/> Add to Favorites</Button>
-                    </ButtonGroup>
+                    <PlaySongsButton><Glyphicon glyph="play"/> { props.playButtonText }</PlaySongsButton>
                     <Image src={ props.imageUrl } className="image" thumbnail/>
                 </Col>
                 <Col md={6}>
